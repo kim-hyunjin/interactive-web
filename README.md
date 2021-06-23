@@ -1,2 +1,2 @@
-# html5 canvas를 사용한 인터랙티브 웹개발 연습
+### practice interactive web using html5 canvas, p5js
 https://kim-hyunjin.github.io/html5-canvas/
