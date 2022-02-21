@@ -10,12 +10,16 @@ let initialTop = getInitialTop();
 imgBox.style.top = `${initialTop}px`;
 
 function getInitialTop() {
-  return -img.clientHeight + window.innerHeight;
+  return -img.clientHeight + windowHeight();
 }
 
 function changeImageTop() {
   const scrollTop = html.scrollTop;
   imgBox.style.top = `${Math.min(0, initialTop + scrollTop)}px`;
+}
+
+function windowHeight() {
+  return Math.max(window.innerHeight, document.documentElement.clientHeight);
 }
 
 window.addEventListener("scroll", changeImageTop);

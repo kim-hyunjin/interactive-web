@@ -22,6 +22,7 @@
         class="item item--center item--wider"
         data-aos="fade-down"
         data-aos-easing="ease-in"
+        data-aos-duration="1000"
       >
         fade-down
       </div>
@@ -32,11 +33,35 @@
       <div class="item item--small item--left" data-aos="fade-down-right">
         fade-down-right
       </div>
-      <div class="item item--wider item--center" data-aos="flip-down">
+      <div
+        id="anchor1"
+        class="item item--wider item--center"
+        data-aos="flip-down"
+      >
         flip-down
       </div>
-      <div class="item item--left" data-aos="zoom-in-right">zoom-in-right</div>
-      <div class="item item--right" data-aos="zoom-in-left">zoom-in-left</div>
+      <!-- 
+        anchor를 사용해 다른 엘리먼트의 위치에 따라 애니메이션을 동작시킬 수 있다.
+        아래 예는 anchor1 엘리먼트의 top이 window의 top과 만났을 때
+        애니메이션이 동작한다.
+      -->
+      <div
+        id="anchor2"
+        class="item item--left"
+        data-aos="zoom-in-right"
+        data-aos-anchor="#anchor1"
+        data-aos-anchor-placement="top-top"
+      >
+        zoom-in-right
+      </div>
+      <div
+        class="item item--right"
+        data-aos="zoom-in-left"
+        data-aos-anchor="#anchor2"
+        data-aos-anchor-placement="bottom-center"
+      >
+        zoom-in-left
+      </div>
       <div class="item item--left" data-aos="fade-up-right">fade-up-right</div>
       <div class="item item--right" data-aos="fade-up-left">fade-up-left</div>
     </section>
