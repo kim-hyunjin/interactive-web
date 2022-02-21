@@ -4,10 +4,41 @@ const imgBox = document.getElementById("imgBox");
 const img = document.getElementById("long-img");
 
 body.style.height = `${img.clientHeight}px`;
-let initialTop = -img.clientHeight + window.innerHeight;
+
+let initialTop = getInitialTop();
 
 imgBox.style.top = `${initialTop}px`;
-window.addEventListener("scroll", () => {
+
+function getInitialTop() {
+  return -img.clientHeight + window.innerHeight;
+}
+
+function changeImageTop() {
   const scrollTop = html.scrollTop;
   imgBox.style.top = `${Math.min(0, initialTop + scrollTop)}px`;
+}
+
+window.addEventListener("scroll", changeImageTop);
+
+window.addEventListener("optimizedResize", function () {
+  initialTop = getInitialTop();
+  changeImageTop();
 });
+
+(function () {
+  const throttle = function (type, eventName) {
+    let running = false;
+    window.addEventListener(type, function () {
+      if (running) {
+        return;
+      }
+      running = true;
+      requestAnimationFrame(function () {
+        window.dispatchEvent(new CustomEvent(eventName));
+        running = false;
+      });
+    });
+  };
+
+  throttle("resize", "optimizedResize");
+})();
