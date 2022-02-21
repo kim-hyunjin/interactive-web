@@ -9,5 +9,5 @@ let initialTop = -img.clientHeight + window.innerHeight;
 imgBox.style.top = `${initialTop}px`;
 window.addEventListener("scroll", () => {
   const scrollTop = html.scrollTop;
-  imgBox.style.top = `${initialTop + scrollTop}px`;
+  imgBox.style.top = `${Math.min(0, initialTop + scrollTop)}px`;
 });
