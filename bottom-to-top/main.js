@@ -3,11 +3,12 @@ const body = document.querySelector("body");
 const imgBox = document.getElementById("imgBox");
 const img = document.getElementById("long-img");
 
-body.style.height = `${img.clientHeight}px`;
-
-let initialTop = getInitialTop();
-
-imgBox.style.top = `${initialTop}px`;
+let initialTop;
+img.onload = () => {
+  body.style.height = `${img.clientHeight}px`;
+  initialTop = getInitialTop();
+  imgBox.style.top = `${initialTop}px`;
+};
 
 function getInitialTop() {
   return -img.clientHeight + windowHeight();
