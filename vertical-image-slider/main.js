@@ -41,6 +41,37 @@ window.addEventListener('wheel', (e) => {
     prevSlide();
   }
 });
+
+const threshold = 30,
+  allowedTime = 1000;
+let startX, startY, startTime;
+window.addEventListener('touchstart', (e) => {
+  const touchObj = e.changedTouches[0];
+  startX = touchObj.pageX;
+  startY = touchObj.pageY;
+  startTime = new Date().getTime();
+  e.preventDefault();
+});
+window.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+});
+window.addEventListener('touchend', (e) => {
+  const touchObj = e.changedTouches[0];
+  const dist = touchObj.pageY - startY;
+  const elapsedTime = new Date().getTime() - startTime;
+  if (elapsedTime > allowedTime) return;
+
+  if (scrolling) return;
+  scrolling = true;
+  if (dist > threshold) {
+    nextSlide();
+  }
+  if (dist < 0 && -dist > threshold) {
+    prevSlide();
+  }
+  e.preventDefault();
+});
+
 let container = document.getElementById('container');
 let leftSlider = document.getElementById('left-col');
 // console.log(leftSlider);
