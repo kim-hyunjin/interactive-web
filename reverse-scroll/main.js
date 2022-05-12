@@ -11,14 +11,8 @@ backgroundContainer.style.top = `${initialTop}px`;
 
 function changeImageTop() {
   const scrollTop = html.scrollTop;
-  if (scrollTop % 450 > imgHeight / 3) {
-    const nextPosition = imgHeight * (Math.floor(scrollTop / imgHeight) + 1);
-    console.log(nextPosition);
-    backgroundContainer.scrollTo({ top: nextPosition, behavior: "smooth" });
-  } else {
-    const newTop = Math.min(0, initialTop + scrollTop);
-    backgroundContainer.style.top = `${newTop}px`;
-  }
+  const newTop = Math.min(0, initialTop + scrollTop);
+  backgroundContainer.style.top = `${newTop}px`;
 }
 
 window.addEventListener("scroll", changeImageTop);
