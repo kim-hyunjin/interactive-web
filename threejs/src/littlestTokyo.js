@@ -24,6 +24,7 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 container.appendChild(renderer.domElement);
 
 /**
+ * https://threejs.org/docs/index.html?q=pmrem#api/en/extras/PMREMGenerator
  * This class generates a Prefiltered, Mipmapped Radiance Environment Map (PMREM)
  * from a cubeMap environment texture.
  * This allows different levels of blur to be quickly accessed based on material roughness.
@@ -44,6 +45,7 @@ controls.enablePan = false;
 controls.enableDamping = true;
 
 /**
+ * https://threejs.org/docs/#examples/en/loaders/DRACOLoader
  * A loader for geometry compressed with the Draco library.
  * Draco is an open source library for compressing and decompressing 3D meshes and point clouds.
  * Compressed geometry can be significantly smaller,
@@ -63,6 +65,7 @@ loader.load(
     scene.add(model);
 
     /**
+     * https://threejs.org/docs/index.html?q=mixer#api/en/animation/AnimationMixer
      * The AnimationMixer is a player for animations on a particular object in the scene.
      * When multiple objects in the scene are animated independently,
      * one AnimationMixer may be used for each object.
