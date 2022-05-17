@@ -15,6 +15,9 @@ module.exports = {
     loadModel: {
       import: "./src/loadModel.js",
     },
+    littlestTokyo: {
+      import: "./src/littlestTokyo.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
