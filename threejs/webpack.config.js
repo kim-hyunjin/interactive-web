@@ -12,6 +12,9 @@ module.exports = {
     updateThings: {
       import: "./src/updateThings.js",
     },
+    loadModel: {
+      import: "./src/loadModel.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
