@@ -18,6 +18,9 @@ module.exports = {
     littlestTokyo: {
       import: "./src/littlestTokyo.js",
     },
+    createText: {
+      import: "./src/createText.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
