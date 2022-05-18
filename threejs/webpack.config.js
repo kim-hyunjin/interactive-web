@@ -21,6 +21,9 @@ module.exports = {
     createText: {
       import: "./src/createText.js",
     },
+    css2dRender: {
+      import: "./src/css2dRender.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
