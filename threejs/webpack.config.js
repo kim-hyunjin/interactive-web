@@ -27,6 +27,9 @@ module.exports = {
     css2dLabel: {
       import: "./src/css2dLabel.js",
     },
+    css3dPeriodictable: {
+      import: "./src/css3dPeriodictable.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
