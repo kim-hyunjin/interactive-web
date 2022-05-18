@@ -24,6 +24,9 @@ module.exports = {
     css2dRender: {
       import: "./src/css2dRender.js",
     },
+    css2dLabel: {
+      import: "./src/css2dLabel.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
