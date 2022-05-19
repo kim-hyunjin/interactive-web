@@ -30,6 +30,9 @@ module.exports = {
     css3dPeriodictable: {
       import: "./src/css3dPeriodictable.js",
     },
+    css3dSprites: {
+      import: "./src/css3dSprites.js",
+    },
   },
   output: {
     filename: "[name].bundle.js",
