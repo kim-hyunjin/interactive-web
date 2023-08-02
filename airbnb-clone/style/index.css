@@ -92,3 +92,44 @@ header {
 #profile-section:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
 }
+
+
+#category-bar {
+    display: flex;
+    gap: 32px;
+    padding: 20px 40px 0;
+    overflow: auto;
+}
+#category-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.category-button {
+    color: #717171;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+.category-button.active,
+.category-button:hover {
+    color: #000000;
+    border-bottom: 2px solid #dddddd;
+}
+
+.category-button .active-image {
+    display: none;
+}
+
+.category-button.active .active-image,
+.category-button:hover .active-image {
+    display: inline-block;
+}
+
+.category-button.active .inactive-image,
+.category-button:hover .inactive-image {
+    display: none;
+}
+.category-button img {
+    width: 28px;
+}
