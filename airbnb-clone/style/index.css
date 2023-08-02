@@ -24,6 +24,7 @@ header {
     box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
     cursor: pointer;
 }
+
 #little-search:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
 }
@@ -76,6 +77,7 @@ header {
     border-radius: 22px;
     padding: 12px;
 }
+
 #do-airbnb:hover {
     background-color: #f7f7f7;
 }
@@ -89,6 +91,7 @@ header {
     gap: 12px;
     cursor: pointer;
 }
+
 #profile-section:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, .18);
 }
@@ -100,6 +103,7 @@ header {
     padding: 20px 40px 0;
     overflow: auto;
 }
+
 #category-bar::-webkit-scrollbar {
     display: none;
 }
@@ -111,6 +115,7 @@ header {
     cursor: pointer;
     border-bottom: 2px solid transparent;
 }
+
 .category-button.active,
 .category-button:hover {
     color: #000000;
@@ -130,6 +135,7 @@ header {
 .category-button:hover .inactive-image {
     display: none;
 }
+
 .category-button img {
     width: 28px;
 }
@@ -163,6 +169,7 @@ main {
 .place-image-wrapper img {
     width: 500px;
     height: 500px;
+    cursor: pointer;
 }
 
 .place-image-wrapper .heart-icon {
@@ -190,4 +197,27 @@ main {
 
 .description-section_title {
     font-weight: 600;
+    cursor: pointer;
+}
+
+#floating-map-button {
+    position: fixed;
+    display: flex;
+    padding: 14px 19px;
+    align-items: center;
+    left: 50%;
+    bottom: 125px;
+    background-color: #222222;
+    border-radius: 24px;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    gap: 8px;
+    cursor: pointer;
+}
+
+#floating-map-button:hover {
+    box-shadow: 0 0 0 1px transparent, 0 0 0 4px transparent, 0 6px 16px rgba(0, 0, 0, 0.12) !important;
+    transform: translateX(-50%) scale(1.04);
 }
