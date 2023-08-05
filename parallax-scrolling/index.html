@@ -1547,23 +1547,23 @@
 
 
     window.addEventListener('scroll', (event) => {
-        sun.style.transform = `translateY(${window.scrollY * 1.05}px)`;
-        grayClouds.style.transform = `translateY(${window.scrollY * 1.05}px)`;
-        whiteClouds.style.transform = `translateY(${window.scrollY * 1.05}px)`;
+        sun.style.transform = `translate3d(0, ${window.scrollY * 0.9}px, 0)`;
+        grayClouds.style.transform = `translate3d(0, ${window.scrollY * 0.9}px, 0)`;
+        whiteClouds.style.transform = `translate3d(0, ${window.scrollY * 0.9}px, 0)`;
 
 
-        bird1.style.transform = `translateX(${window.scrollY * 0.5}px)`;
-        bird2.style.transform = `translateX(${window.scrollY}px)`;
-        bird3.style.transform = `translateX(${window.scrollY * 1.5}px)`;
+        bird1.style.transform = `translate3d(${window.scrollY * 1.5}px, 0, 0)`;
+        bird2.style.transform = `translate3d(${window.scrollY}px, ${window.scrollY * 0.9}px, 0)`;
+        bird3.style.transform = `translate3d(${window.scrollY * 0.5}px, ${window.scrollY * 0.6}px, 0)`;
 
-        mountain0.style.transform = `translateY(${window.scrollY * 0.95}px)`;
-        mountain1.style.transform = `translateY(${window.scrollY * 0.93}px)`;
-        mountain2.style.transform = `translateY(${window.scrollY * 0.8}px)`;
-        mountain3.style.transform = `translateY(${window.scrollY * 0.7}px)`;
-        mountain4.style.transform = `translateY(${window.scrollY * 0.6}px)`;
-        mountain5.style.transform = `translateY(${window.scrollY * 0.5}px)`;
-        mountain6.style.transform = `translateY(${window.scrollY * 0.3}px)`;
-        mountain7.style.transform = `translateY(${window.scrollY * 0.1}px)`;
+        mountain0.style.transform = `translate3d(0, ${window.scrollY * 0.95}px, 0)`;
+        mountain1.style.transform = `translate3d(0, ${window.scrollY * 0.93}px, 0)`;
+        mountain2.style.transform = `translate3d(0, ${window.scrollY * 0.8}px, 0)`;
+        mountain3.style.transform = `translate3d(0, ${window.scrollY * 0.7}px, 0)`;
+        mountain4.style.transform = `translate3d(0, ${window.scrollY * 0.6}px, 0)`;
+        mountain5.style.transform = `translate3d(0, ${window.scrollY * 0.5}px, 0)`;
+        mountain6.style.transform = `translate3d(0, ${window.scrollY * 0.3}px, 0)`;
+        mountain7.style.transform = `translate3d(0, ${window.scrollY * 0.1}px, 0)`;
 
     })
 </script>
