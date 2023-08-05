@@ -1,0 +1,45 @@
+:root {
+    --highlight-color: #127374;
+    --primary-color: #B8E1EE;
+}
+
+body {
+    height: 200vh;
+    background-color: #00110C;
+}
+
+#header {
+    height: 34px;
+    background-color: #04120C;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#header a {
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    height: 34px;
+    box-sizing: border-box;
+}
+
+#header a:hover {
+    background-color: var(--highlight-color);
+}
+
+#right-in-header {
+    display: flex;
+    align-items: center;
+}
+
+#active-menu {
+    background-color: var(--highlight-color);
+}
+#image-wrapper {
+    overflow: hidden;
+}
+#main-image {
+    min-width: 1000px;
+}
