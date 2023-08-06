@@ -8,7 +8,7 @@
 </head>
 <body>
 <header id="header">
-    <a id="title">The Mountain</a>
+    <a href="#document-title" id="title">The Mountain</a>
     <div id="right-in-header">
         <a class="menu">FIREWATCH</a>
         <a class="menu">DEVELOPMENT BLOG</a>
@@ -1520,6 +1520,17 @@
 			</g>
 		</svg>
 </div>
+<main id="main-content">
+    <p id="document-title">
+        AVAILABLE NOW FOR $19.99
+    </p>
+    <div id="platform-tag-wrapper">
+        <div class="platform-tag">WINDOW MAC LINUX</div>
+        <div class="platform-tag">NINTENDO SWITCH</div>
+        <div class="platform-tag">PLAYSTATION 4</div>
+        <div class="platform-tag">XBOX ONE</div>
+    </div>
+</main>
 </body>
 <script>
     document.querySelectorAll('.menu').forEach(function (item) {
@@ -1566,5 +1577,13 @@
         mountain7.style.transform = `translate3d(0, ${window.scrollY * 0.1}px, 0)`;
 
     })
+
+    // const titleLink = document.getElementById('title')
+    // titleLink.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     document.getElementById('document-title').scrollIntoView({
+    //         behavior: 'smooth'
+    //     })
+    // })
 </script>
 </html>
