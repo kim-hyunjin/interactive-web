@@ -40,6 +40,10 @@ body {
     align-items: center;
 }
 
+.long-text {
+    display: none;
+}
+
 #active-menu {
     background-color: var(--highlight-color);
 }
@@ -73,6 +77,12 @@ body {
     width: 50%;
 }
 
+@media (max-width: 800px) {
+    #platform-tag-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
 .platform-tag {
     background-color: var(--primary-color);
     color: #00110C;
@@ -83,4 +93,14 @@ body {
     justify-content: center;
     align-items: center;
     padding: 0.5rem;
+    text-align: center;
+}
+
+@media (min-width: 680px) {
+    .menu .long-text {
+        display: block;
+    }
+    .menu .short-text {
+        display: none;
+    }
 }
