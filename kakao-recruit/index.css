@@ -134,6 +134,7 @@ body {
 #panel1-img {
     position: relative;
     height: 500px;
+    overflow-x: hidden;
 }
 
 #flying-santa-image {
@@ -163,4 +164,68 @@ body {
     line-height: 50px;
     opacity: 0;
     transform: translateY(100px);
+}
+
+#bank-beyond-wrapper {
+    height: 380px;
+}
+
+#bank-beyond {
+    display: flex;
+    justify-content: center;
+}
+
+#white-wrapper {
+    position: relative;
+    background-color: #f7f7f7;
+    height: 700px;
+    z-index: 1;
+    padding-top: 80px;
+}
+
+#slider-container {
+    margin: 0 auto;
+    position: relative;
+    width: 300px;
+}
+
+#slider-content-wrapper {
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+#slider-content-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+#slider-content {
+    display: flex;
+}
+
+.slider-image {
+    width: 300px;
+    height: 466px;
+    scroll-snap-align: center;
+}
+
+.slider-button {
+    position: absolute;
+    bottom: -110px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+#left-button {
+    left: 0;
+}
+
+#right-button {
+    right: 0;
+}
+
+#slider-index {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
 }
