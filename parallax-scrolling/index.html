@@ -1556,26 +1556,40 @@
     const mountain6 = document.getElementById('mountain6')
     const mountain7 = document.getElementById('mountain7')
 
+    let clientWidth = window.outerWidth;
 
     window.addEventListener('scroll', (event) => {
-        sun.style.transform = `translate3d(0, ${window.scrollY * 0.9}px, 0)`;
-        grayClouds.style.transform = `translate3d(0, ${window.scrollY * 0.9}px, 0)`;
-        whiteClouds.style.transform = `translate3d(0, ${window.scrollY * 0.9}px, 0)`;
+        if (clientWidth < 800) return;
+
+        translateImages(window.scrollY);
+    })
+
+    function translateImages(y) {
+        sun.style.transform = `translate3d(0, ${y * 0.9}px, 0)`;
+        grayClouds.style.transform = `translate3d(0, ${y * 0.9}px, 0)`;
+        whiteClouds.style.transform = `translate3d(0, ${y * 0.9}px, 0)`;
 
 
-        bird1.style.transform = `translate3d(${window.scrollY * 1.5}px, 0, 0)`;
-        bird2.style.transform = `translate3d(${window.scrollY}px, ${window.scrollY * 0.9}px, 0)`;
-        bird3.style.transform = `translate3d(${window.scrollY * 0.5}px, ${window.scrollY * 0.6}px, 0)`;
+        bird1.style.transform = `translate3d(${y * 1.5}px, 0, 0)`;
+        bird2.style.transform = `translate3d(${y}px, ${y * 0.9}px, 0)`;
+        bird3.style.transform = `translate3d(${y * 0.5}px, ${y * 0.6}px, 0)`;
 
-        mountain0.style.transform = `translate3d(0, ${window.scrollY * 0.95}px, 0)`;
-        mountain1.style.transform = `translate3d(0, ${window.scrollY * 0.93}px, 0)`;
-        mountain2.style.transform = `translate3d(0, ${window.scrollY * 0.8}px, 0)`;
-        mountain3.style.transform = `translate3d(0, ${window.scrollY * 0.7}px, 0)`;
-        mountain4.style.transform = `translate3d(0, ${window.scrollY * 0.6}px, 0)`;
-        mountain5.style.transform = `translate3d(0, ${window.scrollY * 0.5}px, 0)`;
-        mountain6.style.transform = `translate3d(0, ${window.scrollY * 0.3}px, 0)`;
-        mountain7.style.transform = `translate3d(0, ${window.scrollY * 0.1}px, 0)`;
+        mountain0.style.transform = `translate3d(0, ${y * 0.95}px, 0)`;
+        mountain1.style.transform = `translate3d(0, ${y * 0.93}px, 0)`;
+        mountain2.style.transform = `translate3d(0, ${y * 0.8}px, 0)`;
+        mountain3.style.transform = `translate3d(0, ${y * 0.7}px, 0)`;
+        mountain4.style.transform = `translate3d(0, ${y * 0.6}px, 0)`;
+        mountain5.style.transform = `translate3d(0, ${y * 0.5}px, 0)`;
+        mountain6.style.transform = `translate3d(0, ${y * 0.3}px, 0)`;
+        mountain7.style.transform = `translate3d(0, ${y * 0.1}px, 0)`;
+    }
 
+    window.addEventListener('resize', () => {
+        clientWidth = window.outerWidth;
+
+        if (clientWidth < 800) {
+            translateImages(0);
+        }
     })
 
     // const titleLink = document.getElementById('title')
