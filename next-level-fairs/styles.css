@@ -1,0 +1,64 @@
+body {
+    cursor: none;
+}
+
+.cursor {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.cursor-default__inner {
+    position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(10, 27, 16, 2.5);
+    border: 2px solid #d5a54e;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-trace__inner {
+    position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .25);
+    transform: translate(-50%, -50%);
+    transition: all .04s linear;
+}
+
+.cursor--active .cursor-trace__inner {
+    transform: scale(0.5) translate(-100%, -100%);
+    transition: transform .3s ease-out;
+}
+
+@keyframes ripple {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
+
+.ripple {
+    position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #d5a54e;
+    transform: translate(-50%, -50%);
+    animation: ripple .5s ease-out;
+    animation-fill-mode: forwards;
+    z-index: -1;
+}
