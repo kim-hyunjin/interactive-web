@@ -2,12 +2,14 @@ import {Canvas} from "./js/canvas.js";
 import {Particle} from "./js/particle.js";
 import {randomIntBetween, randomNumBetween} from "./js/utils.js";
 import {Tail} from "./js/tail.js";
+import {Spark} from "./js/spark.js";
 
 let canvas;
 
+const PARTICLE_COUNT = 400;
 const particles = [];
 const tails = [];
-const PARTICLE_COUNT = 400;
+const sparks = [];
 
 function createParticles(x, y, color) {
     // const x = randomNumBetween(0, canvas.width);
@@ -29,11 +31,12 @@ function createTails() {
     tails.push(new Tail(canvas, x, vy, color));
 }
 
+
 function draw() {
     canvas.ctx.fillStyle = '#00000040'
     canvas.ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-    if (Math.random() < 0.03) {
+    if (Math.random() < 0.01) {
         createTails();
     }
     tails.forEach((tail, index) => {
@@ -48,10 +51,24 @@ function draw() {
     particles.forEach((particle, index) => {
         particle.update();
         particle.draw();
+
+        if(Math.random() < 0.1) {
+            const opacity = randomNumBetween(0.2, 0.5)
+            const spark = new Spark(canvas, particle.x, particle.y, 0, 0, opacity)
+            sparks.push(spark);
+        }
         if (particle.opacity <= 0) {
             particles.splice(index, 1);
         }
     });
+
+    sparks.forEach((spark, index) => {
+        spark.update();
+        spark.draw();
+        if (spark.opacity <= 0) {
+            sparks.splice(index, 1);
+        }
+    })
 }
 
 window.addEventListener('load', () => {
