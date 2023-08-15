@@ -1,5 +1,5 @@
 export class Particle {
-    constructor(canvas, x, y, vx, vy, opacity, color) {
+    constructor(canvas, x, y, vx, vy, opacity, colorHue) {
         this.canvas = canvas;
         this.ctx = this.canvas.ctx;
         this.x = x;
@@ -9,7 +9,7 @@ export class Particle {
         this.opacity = opacity;
         this.gravity = 0.12;
         this.friction = 0.93;
-        this.color = color;
+        this.colorHue = colorHue;
     }
 
     update() {
@@ -24,7 +24,7 @@ export class Particle {
     }
 
     draw() {
-        this.ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`
+        this.ctx.fillStyle = `hsla(${this.colorHue}, 100%, 65%, ${this.opacity})`
         this.ctx.beginPath()
         this.ctx.arc(this.x, this.y, 2, 0, Math.PI * 2)
         this.ctx.fill()

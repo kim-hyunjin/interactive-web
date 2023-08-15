@@ -11,7 +11,7 @@ const particles = [];
 const tails = [];
 const sparks = [];
 
-function createParticles(x, y, color) {
+function createParticles(x, y, colorDegree) {
     // const x = randomNumBetween(0, canvas.width);
     // const y = randomNumBetween(0, canvas.height);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
@@ -19,21 +19,24 @@ function createParticles(x, y, color) {
         const angle = Math.PI / 180 * randomNumBetween(0, 360);
         const vx = r * Math.cos(angle);
         const vy = r * Math.sin(angle);
-        const opacity = randomNumBetween(0.6, 0.9)
-
-        particles.push(new Particle(canvas, x, y, vx, vy, opacity, color));
+        const opacity = randomNumBetween(0.6, 0.9);
+        const _colorDegree = colorDegree + randomNumBetween(-20, 20);
+        particles.push(new Particle(canvas, x, y, vx, vy, opacity, _colorDegree));
     }
 }
 function createTails() {
     const x = randomNumBetween(canvas.width * 0.2, canvas.width * 0.8);
     const vy = randomIntBetween(canvas.height / 30, canvas.height / 25) * -1
-    const color = '255, 255, 255';
-    tails.push(new Tail(canvas, x, vy, color));
+    const colorDegree = randomIntBetween(0, 360);
+    tails.push(new Tail(canvas, x, vy, colorDegree));
 }
 
 
 function draw() {
     canvas.ctx.fillStyle = '#00000040'
+    canvas.ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    canvas.ctx.fillStyle = `rgba(255, 255, 255, ${particles.length / 40000})`
     canvas.ctx.fillRect(0, 0, canvas.width, canvas.height)
 
     if (Math.random() < 0.01) {
@@ -42,6 +45,15 @@ function draw() {
     tails.forEach((tail, index) => {
         tail.update();
         tail.draw();
+
+        for (let i = 0; i < Math.round(Math.abs(tail.vy * 0.3)); i++) {
+            const vx = randomNumBetween(-5, 5) * 0.01
+            const vy = randomNumBetween(-30, 30) * 0.01
+            const opacity = Math.min(-tail.vy, 0.5);
+            const spark = new Spark(canvas, tail.x, tail.y, vx, vy, opacity, tail.colorHue)
+            sparks.push(spark)
+        }
+
         if (tail.opacity <= 0.05) {
             tails.splice(index, 1);
             createParticles(tail.x, tail.y, tail.color);
