@@ -10,6 +10,7 @@ const PARTICLE_COUNT = 400;
 const particles = [];
 const tails = [];
 const sparks = [];
+const stars = [];
 
 function createParticles(x, y, colorDegree) {
     // const x = randomNumBetween(0, canvas.width);
@@ -31,6 +32,18 @@ function createTails() {
     tails.push(new Tail(canvas, x, vy, colorDegree));
 }
 
+function createStars() {
+    for (let i = 0; i < canvas.width * 0.05; i++) {
+        const x = randomNumBetween(0, canvas.width);
+        const y = randomNumBetween(0, canvas.height);
+        const r = randomNumBetween(0.2, 1.5);
+        const opacity = randomNumBetween(0.6, 0.9);
+        const star = new Particle(canvas, x, y, 0, 0, opacity, 0)
+        star.colorBrightness = randomNumBetween(90, 100);
+        star.radius = r;
+        stars.push(star);
+    }
+}
 
 function draw() {
     canvas.ctx.fillStyle = '#00000040'
@@ -38,6 +51,10 @@ function draw() {
 
     canvas.ctx.fillStyle = `rgba(255, 255, 255, ${particles.length / 40000})`
     canvas.ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+    stars.forEach(star => {
+        star.draw();
+    });
 
     if (Math.random() < 0.01) {
         createTails();
@@ -87,6 +104,7 @@ window.addEventListener('load', () => {
     const canvasEl = document.getElementById('canvas');
     canvas = new Canvas(canvasEl);
     canvas.init();
+    createStars();
     createTails();
     createParticles();
     canvas.render(draw);

@@ -10,6 +10,8 @@ export class Particle {
         this.gravity = 0.12;
         this.friction = 0.93;
         this.colorHue = colorHue;
+        this.radius = 2;
+        this.colorBrightness = 65;
     }
 
     update() {
@@ -24,9 +26,9 @@ export class Particle {
     }
 
     draw() {
-        this.ctx.fillStyle = `hsla(${this.colorHue}, 100%, 65%, ${this.opacity})`
+        this.ctx.fillStyle = `hsla(${this.colorHue}, 100%, ${this.colorBrightness}%, ${this.opacity})`
         this.ctx.beginPath()
-        this.ctx.arc(this.x, this.y, 2, 0, Math.PI * 2)
+        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
         this.ctx.fill()
         this.ctx.closePath()
     }
