@@ -8,23 +8,22 @@ export class Canvas {
         this.interval = 1000 / this.fps;
         this.width = width;
         this.height = height;
+        this.dpr = devicePixelRatio > 1 ? 2 : 1
     }
 
     init(width, height) {
-        const canvasWidth = width || this.width;
-        const canvasHeight = height || this.height;
+        this.canvasWidth = width || this.width;
+        this.canvasHeight = height || this.height;
 
-        this.dpr = window.devicePixelRatio;
+        this.canvas.width = this.canvasWidth * this.dpr
+        this.canvas.height = this.canvasHeight * this.dpr
+        this.ctx.scale(this.dpr, this.dpr)
 
-        this.ctx.width = canvasWidth * this.dpr;
-        this.ctx.height = canvasHeight * this.dpr;
-        this.ctx.scale(this.dpr, this.dpr);
-
-        this.canvas.style.width = canvasWidth + 'px';
-        this.canvas.style.height = canvasHeight + 'px';
+        this.canvas.style.width = this.canvasWidth + 'px'
+        this.canvas.style.height = this.canvasHeight + 'px'
     }
 
-    render() {
+    render(draw) {
         let now, delta, then = Date.now();
 
         const frame = () => {
@@ -32,7 +31,7 @@ export class Canvas {
             now = Date.now();
             delta = now - then;
             if (delta < this.interval) return;
-
+            draw();
             then = now - (delta % this.interval);
         }
         requestAnimationFrame(frame);
