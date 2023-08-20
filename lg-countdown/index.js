@@ -9,7 +9,7 @@ function init() {
 }
 
 const particles = [];
-const PARTICLE_COUNT = 20;
+const PARTICLE_COUNT = 800;
 function createRing() {
     for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles.push(new Particle(canvas));
@@ -17,10 +17,18 @@ function createRing() {
 }
 
 function draw() {
-    particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-    })
+    canvas.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update();
+        particles[i].draw();
+
+        if (particles[i].opacity <= 0) {
+            particles.splice(i, 1);
+        }
+    }
+
+
 }
 
 function render() {
