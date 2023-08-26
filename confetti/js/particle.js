@@ -8,6 +8,7 @@ export default class Particle {
     x,
     y,
     deg = 0,
+    spread = 30,
     colors = [
       "#ff577f",
       "#ff884b",
@@ -18,12 +19,13 @@ export default class Particle {
       "#4b7aff",
       "#a04bff",
       "#ff4bdc",
-    ]
+    ],
+    shapes = ["square", "circle"]
   ) {
     this.canvas = canvas;
     this.ctx = canvas.ctx;
 
-    this.angle = randomNumBetween(deg - 30, deg + 30) * DEGREE_UNIT;
+    this.angle = randomNumBetween(deg - spread, deg + spread) * DEGREE_UNIT;
 
     this.x = x;
     this.y = y;
@@ -50,6 +52,9 @@ export default class Particle {
     this.color = hexToRGB(
       this.colors[Math.floor(Math.random() * this.colors.length)]
     );
+
+    this.shapes = shapes;
+    this.shape = this.shapes[Math.floor(Math.random() * this.shapes.length)];
   }
 
   update() {
@@ -76,13 +81,40 @@ export default class Particle {
 
     const { r, g, b } = this.color;
     this.ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.opacity})`;
+
+    switch (this.shape) {
+      case "square":
+        this.drawSquare();
+        break;
+      case "circle":
+        this.drawCircle();
+        break;
+    }
+
+    this.ctx.resetTransform();
+  }
+
+  drawSquare() {
     this.ctx.fillRect(
       this.x,
       this.y,
       this.width * Math.cos(this.widthDelta * DEGREE_UNIT),
       this.height * Math.sin(this.heightDelta * DEGREE_UNIT)
     );
+  }
 
-    this.ctx.resetTransform();
+  drawCircle() {
+    this.ctx.beginPath();
+    this.ctx.ellipse(
+      this.x,
+      this.y,
+      Math.abs(this.width * Math.cos(this.widthDelta * DEGREE_UNIT)) / 2,
+      Math.abs(this.height * Math.sin(this.heightDelta * DEGREE_UNIT)) / 2,
+      0,
+      0,
+      2 * Math.PI
+    );
+    this.ctx.fill();
+    this.ctx.closePath();
   }
 }
