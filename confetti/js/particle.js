@@ -1,11 +1,13 @@
 import { randomNumBetween } from "./utils.js";
 
+const DEGREE_UNIT = Math.PI / 180;
+
 export default class Particle {
   constructor(canvas, x, y, deg = 0) {
     this.canvas = canvas;
     this.ctx = canvas.ctx;
 
-    this.angle = (Math.PI / 180) * randomNumBetween(deg - 30, deg + 30);
+    this.angle = randomNumBetween(deg - 30, deg + 30) * DEGREE_UNIT;
 
     this.x = x;
     this.y = y;
@@ -17,10 +19,16 @@ export default class Particle {
     this.friction = 0.89;
     this.gravity = 0.1;
 
-    this.width = 30;
-    this.height = 30;
+    this.width = 12;
+    this.height = 12;
 
     this.opacity = 1;
+
+    this.widthDelta = randomNumBetween(0, 360);
+    this.heightDelta = randomNumBetween(0, 360);
+
+    this.rotation = randomNumBetween(0, 360);
+    this.rotationDelta = randomNumBetween(-1, 1);
   }
 
   update() {
@@ -33,10 +41,26 @@ export default class Particle {
     this.y += this.vy;
 
     this.opacity -= 0.005;
+
+    this.widthDelta += 2;
+    this.heightDelta += 2;
+
+    this.rotation += this.rotationDelta;
   }
 
   draw() {
+    this.ctx.translate(this.x + this.width * 1.2, this.y + this.height * 1.2);
+    this.ctx.rotate(this.rotation * DEGREE_UNIT);
+    this.ctx.translate(-this.x - this.width * 1.2, -this.y - this.height * 1.2);
+
     this.ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
-    this.ctx.fillRect(this.x, this.y, this.width, this.height);
+    this.ctx.fillRect(
+      this.x,
+      this.y,
+      this.width * Math.cos(this.widthDelta * DEGREE_UNIT),
+      this.height * Math.sin(this.heightDelta * DEGREE_UNIT)
+    );
+
+    this.ctx.resetTransform();
   }
 }
