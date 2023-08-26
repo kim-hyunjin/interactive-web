@@ -28,6 +28,10 @@ function draw() {
   for (let i = particles.length - 1; i >= 0; i--) {
     particles[i].update();
     particles[i].draw();
+
+    if (particles[i].opacity <= 0) {
+      particles.splice(i, 1);
+    }
   }
 }
 
@@ -41,6 +45,10 @@ window.addEventListener("load", () => {
 });
 window.addEventListener("resize", init);
 window.addEventListener("click", (e) => {
-  init();
-  render();
+  confetti({
+    x: 0,
+    y: canvas.height / 2,
+    count: 10,
+    deg: -50,
+  });
 });
