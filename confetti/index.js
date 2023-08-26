@@ -8,18 +8,11 @@ function init() {
   const canvasEl = document.querySelector("canvas");
   canvas = new Canvas(canvasEl);
   canvas.init();
-
-  confetti({
-    x: 0,
-    y: canvas.height / 2,
-    count: 10,
-    deg: -50,
-  });
 }
 
-function confetti({ x, y, count, deg }) {
+function confetti({ x, y, count, deg, colors }) {
   for (let i = 0; i < count; i++) {
-    particles.push(new Particle(canvas, x, y, deg));
+    particles.push(new Particle(canvas, x, y, deg, colors));
   }
 }
 

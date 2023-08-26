@@ -1,9 +1,25 @@
-import { randomNumBetween } from "./utils.js";
+import { hexToRGB, randomNumBetween } from "./utils.js";
 
 const DEGREE_UNIT = Math.PI / 180;
 
 export default class Particle {
-  constructor(canvas, x, y, deg = 0) {
+  constructor(
+    canvas,
+    x,
+    y,
+    deg = 0,
+    colors = [
+      "#ff577f",
+      "#ff884b",
+      "#ffcc4b",
+      "#a0ff4b",
+      "#4bffad",
+      "#4bcaff",
+      "#4b7aff",
+      "#a04bff",
+      "#ff4bdc",
+    ]
+  ) {
     this.canvas = canvas;
     this.ctx = canvas.ctx;
 
@@ -29,6 +45,11 @@ export default class Particle {
 
     this.rotation = randomNumBetween(0, 360);
     this.rotationDelta = randomNumBetween(-1, 1);
+
+    this.colors = colors;
+    this.color = hexToRGB(
+      this.colors[Math.floor(Math.random() * this.colors.length)]
+    );
   }
 
   update() {
@@ -53,7 +74,8 @@ export default class Particle {
     this.ctx.rotate(this.rotation * DEGREE_UNIT);
     this.ctx.translate(-this.x - this.width * 1.2, -this.y - this.height * 1.2);
 
-    this.ctx.fillStyle = `rgba(255, 0, 0, ${this.opacity})`;
+    const { r, g, b } = this.color;
+    this.ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.opacity})`;
     this.ctx.fillRect(
       this.x,
       this.y,
