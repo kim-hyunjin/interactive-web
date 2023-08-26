@@ -39,6 +39,9 @@ function draw() {
     if (particles[i].opacity <= 0) {
       particles.splice(i, 1);
     }
+    if (particles[i].y > canvas.height) {
+      particles.splice(i, 1);
+    }
   }
 }
 
