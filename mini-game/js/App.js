@@ -2,6 +2,7 @@ import Background from "./Background.js";
 import Wall from "./Wall.js";
 import Player from "./Player.js";
 import Coin from "./Coin.js"
+import Score from "./Score.js";
 
 export default class App {
     static canvas = document.querySelector('canvas');
@@ -29,6 +30,8 @@ export default class App {
         });
 
         this.coins = []
+
+        this.score = new Score(App.ctx, App.width)
     }
 
     resize() {
@@ -59,6 +62,7 @@ export default class App {
             this.manageWall();
             this.managePlayer();
             this.manageCoin();
+            this.manageScore();
         }
         frame();
     }
@@ -122,8 +126,13 @@ export default class App {
 
             if (this.coins[i].boundingBox.isColliding(this.player.boundingBox)) {
                 this.coins.splice(i, 1)
-                console.log('coin get')
+                this.score.coinCount += 1
             }
         }
+    }
+
+    manageScore() {
+        this.score.update()
+        this.score.draw()
     }
 }

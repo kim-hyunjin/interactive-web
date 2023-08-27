@@ -15,11 +15,11 @@ export default class Player {
         this.vy = -10;
         this.gravity = 0.3;
 
-        this.boundingBox = new CollisionDetector(this.ctx, this.x + 30, this.y + 30, this.width - 50, this.height - 50)
+        this.boundingBox = new CollisionDetector(this.ctx, this.x + 60, this.y + 30, this.width - 80, this.height - 50)
     }
 
     jump() {
-        this.vy -= 8;
+        this.vy -= 5;
     }
 
     update() {
@@ -29,7 +29,7 @@ export default class Player {
 
         this.vy += this.gravity;
         this.y += this.vy;
-        this.boundingBox.y = this.y + 16
+        this.boundingBox.y = this.y + 30
     }
 
     draw() {
