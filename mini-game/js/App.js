@@ -1,5 +1,6 @@
 import Background from "./Background.js";
 import Wall from "./Wall.js";
+import Player from "./Player.js";
 
 export default class App {
     static canvas = document.querySelector('canvas');
@@ -19,6 +20,12 @@ export default class App {
         ]
 
         this.walls = [new Wall({ctx: App.ctx, type: 'SMALL', appWidth: App.width, appHeight: App.height})]
+
+        this.player = new Player({ctx: App.ctx, appWidth: App.width, appHeight: App.height})
+
+        window.addEventListener('click', () => {
+            this.player.jump();
+        });
     }
 
     resize() {
@@ -47,6 +54,7 @@ export default class App {
 
             this.manageBackground();
             this.manageWall();
+            this.managePlayer();
 
             App.ctx.fillRect(50, 50, 100, 100)
         }
@@ -81,5 +89,10 @@ export default class App {
                 this.walls.push(newWall)
             }
         }
+    }
+
+    managePlayer() {
+        this.player.update()
+        this.player.draw()
     }
 }
