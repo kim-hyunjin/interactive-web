@@ -1,4 +1,5 @@
 import {randomNumBetween} from "./utils.js";
+import CollisionDetector from "./CollisionDetector.js";
 
 export default class Wall {
     constructor({ctx, type, appWidth, appHeight}) {
@@ -28,6 +29,8 @@ export default class Wall {
         this.generatedNext = false
         this.gapNextX = appWidth * randomNumBetween(0.3, 0.75)
 
+        this.boundingBox1 = new CollisionDetector(this.ctx, this.x + 30, this.upperWallY + 30, this.width - 60, this.height - 60)
+        this.boundingBox2 = new CollisionDetector(this.ctx, this.x + 30, this.lowerWallY + 30, this.width - 60, this.height - 60)
 
         this.vx = -6
     }
@@ -43,8 +46,17 @@ export default class Wall {
         )
     }
 
+    isColliding(target) {
+        return (
+            this.boundingBox1.isColliding(target) ||
+            this.boundingBox2.isColliding(target)
+        )
+    }
+
     update() {
         this.x += this.vx
+        this.boundingBox1.x = this.x + 30
+        this.boundingBox2.x = this.x + 30
     }
 
     draw() {
@@ -58,5 +70,7 @@ export default class Wall {
             this.sx, 0, this.sizeX * this.img.width, this.img.height,
             this.x, this.lowerWallY, this.width, this.height
         )
+        this.boundingBox1.draw()
+        this.boundingBox2.draw()
     }
 }

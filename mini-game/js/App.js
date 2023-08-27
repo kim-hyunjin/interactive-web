@@ -56,7 +56,6 @@ export default class App {
             this.manageWall();
             this.managePlayer();
 
-            App.ctx.fillRect(50, 50, 100, 100)
         }
         frame();
     }
@@ -87,6 +86,11 @@ export default class App {
                     appHeight: App.height
                 })
                 this.walls.push(newWall)
+            }
+
+            // 벽과 플레이어 충돌관련
+            if (this.walls[i].isColliding(this.player.boundingBox)) {
+                console.log('game over')
             }
         }
     }

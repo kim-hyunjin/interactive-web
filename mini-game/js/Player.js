@@ -1,3 +1,5 @@
+import CollisionDetector from "./CollisionDetector.js";
+
 export default class Player {
     constructor({ctx, appWidth, appHeight}) {
         this.ctx = ctx;
@@ -12,6 +14,8 @@ export default class Player {
 
         this.vy = -10;
         this.gravity = 0.3;
+
+        this.boundingBox = new CollisionDetector(this.ctx, this.x + 10, this.y + 16, this.width - 20, this.height - 20)
     }
 
     jump() {
@@ -25,6 +29,7 @@ export default class Player {
 
         this.vy += this.gravity;
         this.y += this.vy;
+        this.boundingBox.y = this.y + 16
     }
 
     draw() {
@@ -33,5 +38,6 @@ export default class Player {
             this.img.width * (this.frameX / 15), 0, this.img.width / 15, this.img.height,
             this.x, this.y, this.width, this.height
         )
+        this.boundingBox.draw()
     }
 }
