@@ -1,6 +1,7 @@
 import Background from "./Background.js";
 import Wall from "./Wall.js";
 import Player from "./Player.js";
+import Coin from "./Coin.js"
 
 export default class App {
     static canvas = document.querySelector('canvas');
@@ -26,6 +27,8 @@ export default class App {
         window.addEventListener('click', () => {
             this.player.jump();
         });
+
+        this.coins = []
     }
 
     resize() {
@@ -55,7 +58,7 @@ export default class App {
             this.manageBackground();
             this.manageWall();
             this.managePlayer();
-
+            this.manageCoin();
         }
         frame();
     }
@@ -86,6 +89,13 @@ export default class App {
                     appHeight: App.height
                 })
                 this.walls.push(newWall)
+
+                // 새로운 벽에 코인 랜덤 생성
+                if (Math.random() < 1) {
+                    const x = newWall.x + newWall.width / 2
+                    const y = newWall.lowerWallY - newWall.gapY / 2
+                    this.coins.push(new Coin(App.ctx, x, y, newWall.vx))
+                }
             }
 
             // 벽과 플레이어 충돌관련
@@ -98,5 +108,22 @@ export default class App {
     managePlayer() {
         this.player.update()
         this.player.draw()
+    }
+
+    manageCoin() {
+        for (let i = this.coins.length - 1; i >= 0; i--) {
+            this.coins[i].update()
+            this.coins[i].draw()
+
+            if (this.coins[i].x + this.coins[i].width < 0) {
+                this.coins.splice(i, 1)
+                continue
+            }
+
+            if (this.coins[i].boundingBox.isColliding(this.player.boundingBox)) {
+                this.coins.splice(i, 1)
+                console.log('coin get')
+            }
+        }
     }
 }
