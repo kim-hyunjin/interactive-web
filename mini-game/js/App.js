@@ -1,4 +1,5 @@
 import Background from "./Background.js";
+import Wall from "./Wall.js";
 
 export default class App {
     static canvas = document.querySelector('canvas');
@@ -16,6 +17,8 @@ export default class App {
             new Background({ctx: App.ctx, height: App.height, img: document.querySelector('#bg2-img'), speed: -2}),
             new Background({ctx: App.ctx, height: App.height, img: document.querySelector('#bg1-img'), speed: -4}),
         ]
+
+        this.walls = [new Wall({ctx: App.ctx, type: 'SMALL', appWidth: App.width, appHeight: App.height})]
     }
 
     resize() {
@@ -42,14 +45,41 @@ export default class App {
             then = now - (delta % App.interval);
             App.ctx.clearRect(0, 0, App.width, App.height);
 
-            // 배경 관리
-            this.backgrounds.forEach(background => {
-                background.update()
-                background.draw()
-            });
+            this.manageBackground();
+            this.manageWall();
 
             App.ctx.fillRect(50, 50, 100, 100)
         }
         frame();
+    }
+
+    manageBackground() {
+        this.backgrounds.forEach(background => {
+            background.update()
+            background.draw()
+        });
+    }
+
+    manageWall() {
+        for (let i = this.walls.length - 1; i >= 0; i--) {
+            this.walls[i].update()
+            this.walls[i].draw()
+
+            if (this.walls[i].isOutside) {
+                this.walls.splice(i, 1)
+                continue
+            }
+
+            if (this.walls[i].canGenerateNext) {
+                this.walls[i].generatedNext = true
+                const newWall = new Wall({
+                    ctx: App.ctx,
+                    type: Math.random() > 0.3 ? 'SMALL' : 'BIG',
+                    appWidth: App.width,
+                    appHeight: App.height
+                })
+                this.walls.push(newWall)
+            }
+        }
     }
 }
