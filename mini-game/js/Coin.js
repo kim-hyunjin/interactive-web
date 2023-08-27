@@ -29,6 +29,6 @@ export default class Coin {
             this.img.width / 10 * this.frameX, 0, this.img.width / 10, this.img.height,
             this.x, this.y, this.width, this.height
         )
-        this.boundingBox.draw()
+        // this.boundingBox.draw()
     }
 }

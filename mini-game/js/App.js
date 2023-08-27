@@ -28,6 +28,11 @@ export default class App {
         window.addEventListener('click', () => {
             this.player.jump();
         });
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                this.player.jump();
+            }
+        });
 
         this.coins = []
 

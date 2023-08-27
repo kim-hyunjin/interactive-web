@@ -38,6 +38,6 @@ export default class Player {
             this.img.width * (this.frameX / 15), 0, this.img.width / 15, this.img.height,
             this.x, this.y, this.width, this.height
         )
-        this.boundingBox.draw()
+        // this.boundingBox.draw()
     }
 }
