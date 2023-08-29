@@ -1,7 +1,7 @@
 export default class Vector {
     constructor(x, y) {
-        this.x = x || 0;
-        this.y = y || 0;
+        this.x = x || 0
+        this.y = y || 0
     }
 
     static add(v1, v2) {
@@ -36,25 +36,25 @@ export default class Vector {
 
     mul(v) {
         if (typeof v === 'number') {
-            this.x *= v;
-            this.y *= v;
+            this.x *= v
+            this.y *= v
         } else {
-            this.x *= v.x;
-            this.y *= v.y;
+            this.x *= v.x
+            this.y *= v.y
         }
-        return this;
+        return this
     }
 
     setXY(x, y) {
-        this.x = x;
-        this.y = y;
-        return this;
+        this.x = x
+        this.y = y
+        return this
     }
 
     dist(v) {
-        const dx = this.x - v.x;
-        const dy = this.y - v.y;
-        return Math.sqrt(dx * dx + dy * dy);
+        const dx = this.x - v.x
+        const dy = this.y - v.y
+        return Math.sqrt(dx * dx + dy * dy)
     }
 
 }
