@@ -10,6 +10,10 @@ export default class Dot {
 
         this.pinned = false
         this.mass = 1
+
+        this.lightImg = document.querySelector('#light-img')
+        this.lightWidth = 15
+        this.lightHeight = 15
     }
 
     update(mouse) {
@@ -45,10 +49,22 @@ export default class Dot {
     }
 
     draw(ctx) {
-        ctx.fillStyle = '#000'
-        ctx.beginPath()
-        ctx.arc(this.pos.x, this.pos.y, 10, 0, Math.PI * 2)
-        ctx.fill()
-        ctx.closePath()
+        ctx.fillStyle = '#aaa'
+        ctx.fillRect(
+            this.pos.x - this.radius,
+            this.pos.y - this.radius,
+            this.radius * 2,
+            this.radius * 2
+        )
+    }
+
+    drawLight(ctx) {
+        ctx.drawImage(
+            this.lightImg,
+            this.pos.x - this.lightWidth / 2,
+            this.pos.y - this.lightHeight / 2,
+            this.lightWidth,
+            this.lightHeight
+        )
     }
 }
