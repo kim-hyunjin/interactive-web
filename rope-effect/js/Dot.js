@@ -9,6 +9,7 @@ export default class Dot {
         this.friction = 0.97
 
         this.pinned = false
+        this.mass = 1
     }
 
     update() {
