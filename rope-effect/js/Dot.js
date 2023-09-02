@@ -12,7 +12,7 @@ export default class Dot {
         this.mass = 1
     }
 
-    update() {
+    update(mouse) {
         if (this.pinned) return
 
         let velocity = Vector.sub(this.pos, this.oldPos)
@@ -22,6 +22,26 @@ export default class Dot {
         velocity.mul(this.friction)
         velocity.add(this.gravity)
         this.pos.add(velocity)
+
+        this.attractToMouse(mouse)
+    }
+
+    // 마우스 위치로 빨려들어가는 효과
+    attractToMouse(mouse) {
+        let { x: dx, y: dy } = Vector.sub(this.pos, mouse.pos)
+
+        this.distMouse = Math.sqrt(dx * dx + dy * dy)
+        if (this.distMouse > mouse.radius + this.radius) return
+
+        const direction = new Vector(dx / this.distMouse, dy / this.distMouse)
+        let force = (mouse.radius - this.distMouse) / mouse.radius
+
+        if (force < 0) force = 0
+        if (force < 0.6) {
+            this.pos.sub(direction.mul(force).mul(0.0001))
+        } else {
+            this.pos.setXY(mouse.pos.x, mouse.pos.y)
+        }
     }
 
     draw(ctx) {
