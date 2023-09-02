@@ -3,5 +3,5 @@ import App from './js/App.js'
 window.addEventListener('load', () => {
     const app = new App()
     app.render()
-    console.log('loaded')
+    console.log('loaded!')
 })
