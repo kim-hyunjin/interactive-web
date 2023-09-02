@@ -1,6 +1,6 @@
-import Dot from './Dot.js'
-import Stick from './Stick.js'
+import Rope from './Rope.js'
 import Mouse from './Mouse.js'
+import { randomNumBetween } from './utils.js'
 
 export default class App {
     static width = innerWidth
@@ -15,11 +15,25 @@ export default class App {
         this.resize()
         window.addEventListener('resize', this.resize.bind(this))
 
-        this.dots = [new Dot(400, 200), new Dot(500, 100)]
-        this.sticks = [new Stick(this.dots[0], this.dots[1])]
-        this.dots[0].pinned = true
-
         this.mouse = new Mouse(this.canvas)
+
+        this.createRopes()
+    }
+
+    createRopes() {
+        this.ropes = []
+
+        const TOTAL = App.width * 0.06
+        for (let i = 0; i < TOTAL + 1; i++) {
+            const x = randomNumBetween(App.width * 0.3, App.width * 0.7)
+            const y = 0
+            const gap = randomNumBetween(App.height * 0.05, App.height * 0.08)
+            const segments = 10
+            const rope = new Rope({ x, y, gap, segments })
+            rope.pin(0)
+
+            this.ropes.push(rope)
+        }
     }
 
     resize() {
@@ -32,6 +46,8 @@ export default class App {
         this.canvas.width = App.width * App.dpr
         this.canvas.height = App.height * App.dpr
         this.ctx.scale(App.dpr, App.dpr)
+
+        this.createRopes()
     }
 
     render() {
@@ -47,20 +63,9 @@ export default class App {
 
             this.ctx.clearRect(0, 0, App.width, App.height)
 
-            this.dots.forEach((dot) => {
-                dot.update(this.mouse)
-            })
-
-            this.sticks.forEach((stick) => {
-                stick.update()
-            })
-
-            this.dots.forEach((dot) => {
-                dot.draw(this.ctx)
-            })
-
-            this.sticks.forEach((stick) => {
-                stick.draw(this.ctx)
+            this.ropes.forEach((rope) => {
+                rope.update(this.mouse)
+                rope.draw(this.ctx)
             })
         }
         requestAnimationFrame(frame)
