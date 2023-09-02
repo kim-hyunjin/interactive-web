@@ -1,6 +1,7 @@
-import App from "./js/App.js";
+import App from './js/App.js'
 
 window.addEventListener('load', () => {
-    const app = new App();
-    app.render();
+    const app = new App()
+    app.render()
+    console.log('loaded')
 })
