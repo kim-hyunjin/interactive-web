@@ -1,4 +1,5 @@
 import ArrowImg from './assets/arrow.svg'
+import Nudake from './containers/Nudake';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
               <li>codepen</li>
             </ul>
           </header>
-          <main></main>
+          <main>
+            <Nudake />
+          </main>
         </section>
         <section className="section-2">What is Lorem Ipsum?</section>
         <section className="section-3">
