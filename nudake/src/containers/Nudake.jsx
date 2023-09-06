@@ -14,33 +14,46 @@ const Nudake = () => {
     const canvasParent = canvas.parentNode;
     const ctx = canvas.getContext("2d");
 
-    const imageSrcs = [image1, image2, image3];
+    const images = [image1, image2, image3];
     let currentIndex = 0;
 
-    let canvasWidh, canvasHeight;
+    let canvasWidth, canvasHeight;
 
     function resize() {
-      canvasWidh = canvasParent.clientWidth;
+      canvasWidth = canvasParent.clientWidth;
       canvasHeight = canvasParent.clientHeight;
 
-      canvas.style.width = canvasWidh + "px";
+      canvas.style.width = canvasWidth + "px";
       canvas.style.height = canvasHeight + "px";
 
-      canvas.width = canvasWidh;
+      canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
       drawImage();
     }
 
     function drawImage() {
-      ctx.clearRect(0, 0, canvasWidh, canvasHeight);
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       const image = new Image();
-      image.src = imageSrcs[currentIndex];
+      image.src = images[currentIndex];
       image.onload = () => {
-        ctx.drawImage(image, 0, 0, canvasWidh, canvasHeight);
+        ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
       };
     }
 
+    function onMouseDown() {
+      canvas.addEventListener("mouseup", onMouseUp);
+      canvas.addEventListener("mousemove", onMouseMove);
+    }
+
+    function onMouseUp() {
+      canvas.removeEventListener("mouseup", onMouseUp);
+      canvas.removeEventListener("mousemove", onMouseMove);
+    }
+
+    function onMouseMove() {}
+
+    canvas.addEventListener("mousedown", onMouseDown);
     window.addEventListener("resize", resize);
     resize();
 
