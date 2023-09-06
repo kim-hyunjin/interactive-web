@@ -5,7 +5,12 @@ import { useRef } from "react";
 import image1 from "../assets/nudake-1.jpg";
 import image2 from "../assets/nudake-2.jpg";
 import image3 from "../assets/nudake-3.jpg";
-import { getAngle, getDistance, getErasedPercentage } from "../utils/utils.js";
+import {
+  drawImageCenter,
+  getAngle,
+  getDistance,
+  getErasedPercentage,
+} from "../utils/utils.js";
 
 const Nudake = () => {
   const canvasRef = useRef(null);
@@ -39,7 +44,7 @@ const Nudake = () => {
       image.src = images[currentIndex];
       image.onload = () => {
         ctx.globalCompositeOperation = "source-over";
-        ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+        drawImageCenter(canvas, image);
         canvasParent.style.backgroundImage = `url(${
           images[(currentIndex + 1) % images.length]
         })`;

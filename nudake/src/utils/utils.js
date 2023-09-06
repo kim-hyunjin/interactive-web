@@ -29,3 +29,29 @@ export function getErasedPercentage(canvas) {
 
   return Math.round((erased / total) * 100);
 }
+
+export function drawImageCenter(canvas, image) {
+  const ctx = canvas.getContext("2d");
+
+  const cw = canvas.width;
+  const ch = canvas.height;
+  const iw = image.width;
+  const ih = image.height;
+
+  const imgRatio = ih / iw;
+  const canvasRatio = ch / cw;
+
+  let sx, sy, sw, sh;
+
+  if (imgRatio >= canvasRatio) {
+    sw = iw;
+    sh = sw * canvasRatio;
+  } else {
+    sh = ih;
+    sw = sh * (cw / ch);
+  }
+  sx = iw / 2 - sw / 2;
+  sy = ih / 2 - sh / 2;
+
+  ctx.drawImage(image, sx, sy, sw, sh, 0, 0, cw, ch);
+}
