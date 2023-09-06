@@ -35,20 +35,37 @@ const Nudake = () => {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
-      drawImage();
+      preloadImages().then(drawImage);
+    }
+
+    const loadedImages = [];
+
+    function preloadImages() {
+      return new Promise((resolve, reject) => {
+        images.forEach((image) => {
+          const img = new Image();
+          img.src = image;
+          img.onload = () => {
+            loadedImages.push(img);
+            if (loadedImages.length === images.length) {
+              return resolve();
+            }
+          };
+          img.onerror = () => {
+            return reject();
+          };
+        });
+      });
     }
 
     function drawImage() {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      const image = new Image();
-      image.src = images[currentIndex];
-      image.onload = () => {
-        ctx.globalCompositeOperation = "source-over";
-        drawImageCenter(canvas, image);
-        canvasParent.style.backgroundImage = `url(${
-          images[(currentIndex + 1) % images.length]
-        })`;
-      };
+      const image = loadedImages[currentIndex];
+      ctx.globalCompositeOperation = "source-over";
+      drawImageCenter(canvas, image);
+      canvasParent.style.backgroundImage = `url(${
+        images[(currentIndex + 1) % images.length]
+      })`;
     }
 
     function onMouseDown(e) {
