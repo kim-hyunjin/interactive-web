@@ -51,7 +51,17 @@ const Nudake = () => {
       canvas.removeEventListener("mousemove", onMouseMove);
     }
 
-    function onMouseMove() {}
+    function onMouseMove(e) {
+      drawCircles(e);
+    }
+
+    function drawCircles(e) {
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(e.clientX, e.clientY, 50, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.closePath();
+    }
 
     canvas.addEventListener("mousedown", onMouseDown);
     window.addEventListener("resize", resize);
