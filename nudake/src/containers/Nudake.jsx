@@ -11,6 +11,7 @@ import {
   getDistance,
   getErasedPercentage,
 } from "../utils/utils.js";
+import gsap from "gsap";
 
 const Nudake = () => {
   const canvasRef = useRef(null);
@@ -23,7 +24,9 @@ const Nudake = () => {
     const images = [image1, image2, image3];
     let currentIndex = 0;
     let prevPosition = { x: 0, y: 0 };
+    let isChanging = false;
     let canvasWidth, canvasHeight;
+    let isFirstDrawing = true;
 
     function resize() {
       canvasWidth = canvasParent.clientWidth;
@@ -59,16 +62,28 @@ const Nudake = () => {
     }
 
     function drawImage() {
-      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-      const image = loadedImages[currentIndex];
-      ctx.globalCompositeOperation = "source-over";
-      drawImageCenter(canvas, image);
-      canvasParent.style.backgroundImage = `url(${
-        images[(currentIndex + 1) % images.length]
-      })`;
+      isChanging = true;
+
+      gsap.to(canvas, {
+        opacity: 0,
+        duration: isFirstDrawing ? 0 : 1,
+        onComplete: () => {
+          const image = loadedImages[currentIndex];
+          canvas.style.opacity = 1;
+          ctx.globalCompositeOperation = "source-over";
+          drawImageCenter(canvas, image);
+          canvasParent.style.backgroundImage = `url(${
+            images[(currentIndex + 1) % images.length]
+          })`;
+          prevPosition = null;
+          isChanging = false;
+          isFirstDrawing = false;
+        },
+      });
     }
 
     function onMouseDown(e) {
+      if (isChanging) return;
       canvas.addEventListener("mouseup", onMouseUp);
       canvas.addEventListener("mousemove", onMouseMove);
       prevPosition = { x: e.offsetX, y: e.offsetY };
@@ -81,6 +96,7 @@ const Nudake = () => {
     }
 
     function onMouseMove(e) {
+      if (isChanging) return;
       drawCircles(e);
       checkPercent();
     }
@@ -103,6 +119,9 @@ const Nudake = () => {
 
     function drawCircles(e) {
       const nextPos = { x: e.offsetX, y: e.offsetY };
+      if (!prevPosition) {
+        prevPosition = nextPos;
+      }
       const dist = getDistance(prevPosition, nextPos);
       const angle = getAngle(prevPosition, nextPos);
 
@@ -111,7 +130,7 @@ const Nudake = () => {
         const y = prevPosition.y + Math.sin(angle) * i;
         ctx.globalCompositeOperation = "destination-out";
         ctx.beginPath();
-        ctx.arc(x, y, 50, 0, 2 * Math.PI);
+        ctx.arc(x, y, 15, 0, 2 * Math.PI);
         ctx.fill();
         ctx.closePath();
       }
