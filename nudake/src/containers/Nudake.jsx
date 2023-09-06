@@ -5,7 +5,7 @@ import { useRef } from "react";
 import image1 from "../assets/nudake-1.jpg";
 import image2 from "../assets/nudake-2.jpg";
 import image3 from "../assets/nudake-3.jpg";
-import { getAngle, getDistance } from "../utils/utils.js";
+import { getAngle, getDistance, getErasedPercentage } from "../utils/utils.js";
 
 const Nudake = () => {
   const canvasRef = useRef(null);
@@ -13,7 +13,7 @@ const Nudake = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     const canvasParent = canvas.parentNode;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
     const images = [image1, image2, image3];
     let currentIndex = 0;
@@ -54,8 +54,19 @@ const Nudake = () => {
       canvas.removeEventListener("mousemove", onMouseMove);
     }
 
+    let erasedPercentCalculating = false;
+    let percent;
+
     function onMouseMove(e) {
       drawCircles(e);
+      if (!erasedPercentCalculating) {
+        erasedPercentCalculating = true;
+        setTimeout(() => {
+          percent = getErasedPercentage(canvas);
+          erasedPercentCalculating = false;
+        }, 1000);
+        console.log(percent);
+      }
     }
 
     function drawCircles(e) {
