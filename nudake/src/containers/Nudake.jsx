@@ -38,7 +38,11 @@ const Nudake = () => {
       const image = new Image();
       image.src = images[currentIndex];
       image.onload = () => {
+        ctx.globalCompositeOperation = "source-over";
         ctx.drawImage(image, 0, 0, canvasWidth, canvasHeight);
+        canvasParent.style.backgroundImage = `url(${
+          images[(currentIndex + 1) % images.length]
+        })`;
       };
     }
 
@@ -54,18 +58,24 @@ const Nudake = () => {
       canvas.removeEventListener("mousemove", onMouseMove);
     }
 
-    let erasedPercentCalculating = false;
-    let percent;
-
     function onMouseMove(e) {
       drawCircles(e);
+      checkPercent();
+    }
+
+    let erasedPercentCalculating = false;
+
+    function checkPercent() {
       if (!erasedPercentCalculating) {
         erasedPercentCalculating = true;
         setTimeout(() => {
-          percent = getErasedPercentage(canvas);
+          const percent = getErasedPercentage(canvas);
+          if (percent > 50) {
+            currentIndex = (currentIndex + 1) % images.length;
+            drawImage();
+          }
           erasedPercentCalculating = false;
         }, 1000);
-        console.log(percent);
       }
     }
 
