@@ -1,5 +1,6 @@
-import ArrowImg from './assets/arrow.svg'
-import Nudake from './containers/Nudake';
+import ArrowImg from "./assets/arrow.svg";
+import Matter from "./containers/Matter";
+import Nudake from "./containers/Nudake";
 
 function App() {
   return (
@@ -39,7 +40,9 @@ function App() {
             PageMaker including versions of Lorem Ipsum.
           </article>
         </section>
-        <section className="section-4"></section>
+        <section className="section-4">
+          <Matter />
+        </section>
       </div>
       <footer>
         <div className="email">test@gmail.com</div>
