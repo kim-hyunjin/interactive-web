@@ -1,23 +1,25 @@
-import {
-  Ball
-} from './ball.js';
+import { Ball } from "./ball.js";
 
-import {
-  Block
-} from './block.js';
+import { Block } from "./block.js";
 
 class App {
   constructor() {
-    this.canvas = document.createElement('canvas');
-    this.ctx = this.canvas.getContext('2d');
+    this.canvas = document.createElement("canvas");
+    this.ctx = this.canvas.getContext("2d");
 
     document.body.appendChild(this.canvas);
 
-    window.addEventListener('resize', this.resize.bind(this), false);
+    window.addEventListener("resize", this.resize.bind(this), false);
     this.resize();
 
-    this.ball = new Ball(this.stageWidth, this.stageHeight, 60, 15);
-    this.block = new Block(700, 30, 300, 450)
+    const isMobile = window.innerWidth < 640;
+
+    const ballSize = isMobile ? 30 : 60;
+    this.ball = new Ball(this.stageWidth, this.stageHeight, ballSize, 15);
+
+    this.block = isMobile
+      ? new Block(window.innerWidth / 2, 15, (window.innerWidth / 3) * 2, 225)
+      : new Block(700, 30, 300, 450);
 
     window.requestAnimationFrame(this.animate.bind(this));
   }
@@ -43,4 +45,4 @@ class App {
 
 window.onload = () => {
   new App();
-}
+};
