@@ -173,3 +173,42 @@ footer > .email {
 .preload-nudake-img {
   display: none;
 }
+
+@media screen and (max-width: 768px) {
+  .section-1 > header {
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+  .section-2 {
+    font-size: 6rem;
+    letter-spacing: -0.3rem;
+  }
+  .section-3 {
+    flex-direction: column;
+  }
+  .section-3 > aside {
+    width: 100%;
+    border: none;
+  }
+  .section-3 > aside > .top {
+    font-size: 3rem;
+  }
+  .section-3 > article {
+    width: 90%;
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  .rotate-canvas-wrapper {
+    flex-direction: column;
+  }
+  .rotate-canvas-wrapper > aside > h1 {
+    font-size: 2rem;
+  }
+  .rotate-canvas-wrapper > aside > h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  footer {
+    min-height: 30vh;
+  }
+}

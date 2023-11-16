@@ -3,6 +3,9 @@ import {
   getAngle,
   getErasedPercentage,
   drawImageCenter,
+  enableScroll,
+  disableScroll,
+  isMobileOrTablet,
 } from "./utils/utils.js";
 
 const canvas = document.getElementById("nudake-canvas");
@@ -26,11 +29,7 @@ export function resize() {
   canvas.height = canvasHeight;
 }
 
-const imageUrls = [
-  "url(./nudake-1.jpg)",
-  "url(./nudake-2.jpg)",
-  "url(./nudake-3.jpg)",
-];
+const imageUrls = ["url(./nudake-1.jpg)", "url(./nudake-2.jpg)", "url(./nudake-3.jpg)"];
 const loadedImages = document.querySelectorAll(".preload-nudake-img");
 
 export function drawImage() {
@@ -44,8 +43,7 @@ export function drawImage() {
       canvas.style.opacity = 1;
       ctx.globalCompositeOperation = "source-over";
       drawImageCenter(canvas, image);
-      canvasParent.style.backgroundImage =
-        imageUrls[(currentIndex + 1) % imageUrls.length];
+      canvasParent.style.backgroundImage = imageUrls[(currentIndex + 1) % imageUrls.length];
       prevPosition = null;
       isChanging = false;
       isFirstDrawing = false;
@@ -55,19 +53,32 @@ export function drawImage() {
 
 function onMouseDown(e) {
   if (isChanging) return;
+  if (isMobileOrTablet()) {
+    disableScroll();
+  }
   canvas.addEventListener("mouseup", onMouseUp);
+  canvas.addEventListener("touchend", onMouseUp);
+
   canvas.addEventListener("mousemove", onMouseMove);
-  prevPosition = { x: e.offsetX, y: e.offsetY };
+  canvas.addEventListener("touchmove", onMouseMove);
+  prevPosition = getPos(e);
 }
 
 function onMouseUp() {
+  if (isMobileOrTablet()) {
+    enableScroll();
+  }
   canvas.removeEventListener("mouseup", onMouseUp);
+  canvas.removeEventListener("touchend", onMouseUp);
   canvas.removeEventListener("mouseleave", onMouseUp);
+
   canvas.removeEventListener("mousemove", onMouseMove);
+  canvas.removeEventListener("touchmove", onMouseMove);
 }
 
 function onMouseMove(e) {
   if (isChanging) return;
+  console.log("onMouseMove", prevPosition);
   drawCircles(e);
   checkPercent();
 }
@@ -89,7 +100,7 @@ function checkPercent() {
 }
 
 function drawCircles(e) {
-  const nextPos = { x: e.offsetX, y: e.offsetY };
+  const nextPos = getPos(e);
   if (!prevPosition) {
     prevPosition = nextPos;
   }
@@ -108,5 +119,10 @@ function drawCircles(e) {
   prevPosition = nextPos;
 }
 
+function getPos(e) {
+  return { x: e.offsetX ?? e.touches[0].clientX, y: e.offsetY ?? e.touches[0].clientY };
+}
+
 canvas.addEventListener("mousedown", onMouseDown);
+canvas.addEventListener("touchstart", onMouseDown);
 window.addEventListener("resize", resize);
